@@ -12,7 +12,7 @@ public interface TaskDataSource {
 
         void onTasksLoaded(List<User> users);
 
-        Void onDataNotAvailable();
+        void onDataNotAvailable();
     }
 
     interface GetTaskCallback{

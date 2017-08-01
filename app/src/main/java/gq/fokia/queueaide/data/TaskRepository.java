@@ -1,5 +1,8 @@
 package gq.fokia.queueaide.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,7 +55,7 @@ public class TaskRepository implements TaskDataSource {
                 }
 
                 @Override
-                public Void onDataNotAvailable() {
+                public void onDataNotAvailable() {
                     getTasksFromRemoteDataSource(callback);
                 }
             });
@@ -61,7 +64,47 @@ public class TaskRepository implements TaskDataSource {
     }
 
     @Override
-    public void getTask(String taskId, GetTaskCallback callback) {
+    public void getTask(final String taskId, final GetTaskCallback callback) {
+
+        final User cachedUser = getTaskWithId(taskId);
+
+        if(cachedUser != null){
+            callback.onTaskLoaded(cachedUser);
+            return;
+        }
+
+        mTaskRemoteDataSource.getTask(taskId, new GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(User user) {
+
+                if (mCachedUsers == null){
+                    mCachedUsers = new LinkedHashMap<>();
+                }
+                mCachedUsers.put(user.getId(), user);
+                callback.onTaskLoaded(user);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mTaskRemoteDataSource.getTask(taskId, new GetTaskCallback() {
+                    @Override
+                    public void onTaskLoaded(User user) {
+
+                        if (mCachedUsers == null){
+                            mCachedUsers = new LinkedHashMap<String, User>();
+                        }
+                        mCachedUsers.put(user.getId(), user);
+                        callback.onTaskLoaded(user);
+                    }
+
+                    @Override
+                    public void onDataNotAvailable() {
+                        callback.onDataNotAvailable();
+                    }
+                });
+
+            }
+        });
 
     }
 
@@ -96,7 +139,12 @@ public class TaskRepository implements TaskDataSource {
     public void activateTask(User user) {
         mTaskRemoteDataSource.activateTask(user);
 
-        User activeTask = new User(user.getId(), user.getWindowName(), user.getName(), user.getTime(), user.getFoodName(), f)
+        User activeTask = new User(user.getId(), user.getWindowName(), user.getName(), user.getTime(), user.getFoodName(), false);
+
+        if (mCachedUsers == null){
+            mCachedUsers = new LinkedHashMap<>();
+        }
+        mCachedUsers.put(user.getId(), activeTask);
 
     }
 
@@ -107,16 +155,64 @@ public class TaskRepository implements TaskDataSource {
 
     @Override
     public void refreshTasks() {
-
+        mCacheIsDirty = true;
     }
 
     @Override
     public void deleteAllTasks() {
+        mTaskRemoteDataSource.deleteAllTasks();
 
+        if (mCachedUsers == null){
+            mCachedUsers = new LinkedHashMap<>();
+        }
+        mCachedUsers.clear();
     }
 
     @Override
     public void deleteTask(String taskId) {
+        mTaskRemoteDataSource.deleteTask(taskId);
+        mCachedUsers.remove(taskId);
+    }
 
+    private void getTasksFromRemoteDataSource(final LoadTasksCallback callback){
+        mTaskRemoteDataSource.getTasks(new LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(List<User> users) {
+                refreshCache(users);
+                refreshLocalDataSource(new ArrayList<User>(mCachedUsers.values()));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    private void refreshCache(List<User> users) {
+        if (mCachedUsers == null) {
+            mCachedUsers = new LinkedHashMap<>();
+        }
+        mCachedUsers.clear();
+        for (User user : users) {
+            mCachedUsers.put(user.getId(), user);
+        }
+        mCacheIsDirty = false;
+    }
+
+    private void refreshLocalDataSource(List<User> users) {
+        //mTasksLocalDataSource.deleteAllTasks();
+        for (User user : users) {
+            //mTasksLocalDataSource.saveTask(task);
+        }
+    }
+
+    @Nullable
+    private User getTaskWithId(@NonNull String id) {
+        if (mCachedUsers == null || mCachedUsers.isEmpty()) {
+            return null;
+        } else {
+            return mCachedUsers.get(id);
+        }
     }
 }
