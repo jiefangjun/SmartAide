@@ -49,6 +49,10 @@ public class QueueFetcher {
         }
     }
 
+    public String getJsonString(String urlSpec) throws IOException{
+        return jsonString = new String(getUrlBytes(urlSpec));
+    }
+
     public List<User> getUrlString(String urlSpec) throws IOException{
         jsonString = new String(getUrlBytes(urlSpec));
         return fetchItems();

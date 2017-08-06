@@ -17,6 +17,9 @@ public class User {
     private String foodName;
     private boolean mCompleted;
 
+    public User(){
+
+    }
 
     public User(String id, String name, String time, String windowName, String foodName){
         this(id, name, time, windowName, foodName, false);

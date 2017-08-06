@@ -1,7 +1,10 @@
 package gq.fokia.queueaide.QueueUsers;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import gq.fokia.queueaide.BasePresenter;
+import gq.fokia.queueaide.BaseView;
 import gq.fokia.queueaide.data.User;
 
 /**
@@ -10,17 +13,16 @@ import gq.fokia.queueaide.data.User;
 
 public interface QueueUsersContract {
 
-    interface View{
-        void showData(String users);
+    interface View extends BaseView<Presenter>{
+        void showData();
     }
 
-    interface Presenter{
-        List<User> getData();
+    interface Presenter extends BasePresenter{
+        List<User> loadData();
     }
 
     interface Model{
-        String doData();
+        List<User> getData();
     }
-
 
 }

@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -21,11 +24,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView mTextView;
+        ImageView userIcon;
+        TextView windowName;
+        TextView foodName;
+        TextView userName;
+        TextView userTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.recycler_item);
+            userIcon = (ImageView) itemView.findViewById(R.id.user_icon);
+            windowName = (TextView) itemView.findViewById(R.id.window_name);
+            foodName = (TextView) itemView.findViewById(R.id.food_name);
+            userName = (TextView) itemView.findViewById(R.id.user_name);
+            userTime = (TextView) itemView.findViewById(R.id.user_time);
         }
     }
 
@@ -44,7 +55,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = mUserList.get(position);
-        holder.mTextView.setText(user.getName());
+        holder.windowName.setText(user.getWindowName());
+        holder.userName.setText(user.getName());
+        holder.foodName.setText(user.getFoodName());
+        holder.userTime.setText(user.getTime());
     }
 
     @Override
