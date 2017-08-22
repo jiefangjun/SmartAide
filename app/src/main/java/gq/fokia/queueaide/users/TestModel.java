@@ -1,13 +1,9 @@
-package gq.fokia.queueaide.QueueUsers;
-import android.os.AsyncTask;
+package gq.fokia.queueaide.users;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import gq.fokia.queueaide.data.User;
-import gq.fokia.queueaide.data.remote.QueueFetcher;
 
 /**
  * Created by archie on 7/29/17.

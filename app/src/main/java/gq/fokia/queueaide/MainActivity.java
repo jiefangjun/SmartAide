@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
-import gq.fokia.queueaide.QueueUsers.QueueUsersFragment;
+import gq.fokia.queueaide.users.QueueUsersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:
                         replaceFragment(new QueueUsersFragment());
+                        break;
+                    case 2:
+                        //replaceFragment();
+                        //TODO 在account下新建一个AccountFragment，实现记账功能，布局参考 QueueUsersFragment，展示数据。给一个添加数据的接口。
                 }
             }
             @Override

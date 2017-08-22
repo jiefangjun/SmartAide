@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.QueueUsers;
+package gq.fokia.queueaide.users;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

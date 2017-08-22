@@ -1,7 +1,6 @@
-package gq.fokia.queueaide.QueueUsers;
+package gq.fokia.queueaide.users;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import gq.fokia.queueaide.BasePresenter;
 import gq.fokia.queueaide.BaseView;

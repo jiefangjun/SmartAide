@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.QueueUsers;
+package gq.fokia.queueaide.users;
 
 import android.os.AsyncTask;
 
