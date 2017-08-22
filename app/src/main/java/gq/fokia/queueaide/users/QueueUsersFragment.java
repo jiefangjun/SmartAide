@@ -44,8 +44,6 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
                 getActivity(), DividerItemDecoration.VERTICAL));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        //调整SwipeRefreshLayout的位置
-        //mSwipeRefreshLayout.setProgressViewOffset(false, 0,  (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
         initData();
         setListener();
         return view;
@@ -66,7 +64,7 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
     @Override
     public void showData(){
         mUsersAdapter.notifyDataSetChanged();
-        mSwipeRefreshLayout.setRefreshing(false);
+        //mSwipeRefreshLayout.setRefreshing(false);
         Log.d(getClass().toString(), "子线程结束");
     }
 
@@ -78,7 +76,7 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
 
     @Override
     public void showInfo(){
-        mSwipeRefreshLayout.setRefreshing(true);
+        //mSwipeRefreshLayout.setRefreshing(true);
         Toast.makeText(getActivity(), "数据获取成功", Toast.LENGTH_LONG).show();
     }
 

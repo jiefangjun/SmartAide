@@ -35,7 +35,6 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
 
     @Override
     public List<User> getData() {
-        //loadData();
         return mModel.getData();
     }
 
@@ -44,7 +43,6 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mView.showInfo();
         }
 
         @Override
