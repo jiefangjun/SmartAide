@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -22,7 +24,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        initBottomNavigationBar(bottomNavigationBar);
 
+
+
+
+
+    }
+
+    public void initBottomNavigationBar(BottomNavigationBar bottomNavigationBar){
+        bottomNavigationBar.setAutoHideEnabled(true);
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_home_black_24dp, "排队").setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.drawable.ic_local_shipping_black_24dp, "外卖").setActiveColorResource(R.color.colorPrimary))
@@ -32,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
                 .initialise();
-
-
+        //bottomNavigationBar.setFirstSelectedPosition(0)
         //单个view对应多个presenter，用fragment实现。
 
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        bottomNavigationBar.selectTab(0);
     }
 
     private void replaceFragment(Fragment fragment){
@@ -64,4 +74,19 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.scan:
+                //TODO
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

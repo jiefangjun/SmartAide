@@ -2,12 +2,8 @@ package gq.fokia.queueaide.QueueUsers;
 
 import android.os.AsyncTask;
 
-import junit.framework.Test;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import gq.fokia.queueaide.data.User;
 import gq.fokia.queueaide.data.remote.QueueFetcher;
@@ -20,6 +16,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
 
     private TestModel mModel;
     private QueueUsersContract.View mView;
+    private FetchItemsTask mFetchItemsTask;
 
     public QueueUsersPresenter(TestModel model, QueueUsersContract.View view) {
         mModel = model;
@@ -28,12 +25,44 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
 
     @Override
     public void start() {
-        mView.showData();
+        loadData();
     }
 
     @Override
-    public List<User> loadData() {
+    public void loadData() {
+        new FetchItemsTask().execute("http://192.168.123.153:8080/listusers");
+    }
+
+    @Override
+    public List<User> getData() {
+        //loadData();
         return mModel.getData();
+    }
+
+    class FetchItemsTask extends AsyncTask<String, Integer, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mView.showInfo();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                mModel.doData(new QueueFetcher().getUrlString(params[0]));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mView.showData();
+        }
+
     }
 
 

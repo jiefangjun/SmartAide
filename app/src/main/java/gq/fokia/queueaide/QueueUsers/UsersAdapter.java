@@ -18,9 +18,19 @@ import gq.fokia.queueaide.data.User;
  * Created by archie on 7/30/17.
  */
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> implements View.OnClickListener{
 
     private List<User> mUserList;
+
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view);
+    }
+
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -48,6 +58,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_users_item, parent, false);
+
+        view.setOnClickListener(this);
+
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -64,5 +77,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return mUserList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (mOnItemClickListener != null){
+            mOnItemClickListener.onItemClick(v);
+        }
     }
 }

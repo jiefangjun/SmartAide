@@ -5,6 +5,5 @@ package gq.fokia.queueaide;
  */
 
 public interface BaseView<T> {
-
     void setPresenter(T presenter);
 }
