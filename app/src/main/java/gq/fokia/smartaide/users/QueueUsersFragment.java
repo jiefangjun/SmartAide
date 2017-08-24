@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import java.util.List;
 
-import gq.fokia.queueaide.R;
+import gq.fokia.smartaide.R;
 import gq.fokia.smartaide.data.User;
 
 /**

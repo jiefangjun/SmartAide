@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
-import gq.fokia.queueaide.R;
 import gq.fokia.smartaide.users.QueueUsersFragment;
 
 public class MainActivity extends AppCompatActivity {

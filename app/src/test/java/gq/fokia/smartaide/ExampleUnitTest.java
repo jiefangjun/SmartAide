@@ -1,4 +1,4 @@
-package gq.fokia.queueaide;
+package gq.fokia.smartaide;
 
 import org.junit.Test;
 

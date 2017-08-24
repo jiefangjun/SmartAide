@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import gq.fokia.queueaide.R;
+import gq.fokia.smartaide.R;
 import gq.fokia.smartaide.data.User;
 
 /**

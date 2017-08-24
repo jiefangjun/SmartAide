@@ -1,4 +1,4 @@
-package gq.fokia.queueaide;
+package gq.fokia.smartaide;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
