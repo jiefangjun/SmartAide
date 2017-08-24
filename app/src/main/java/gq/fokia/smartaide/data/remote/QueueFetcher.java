@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.data.remote;
+package gq.fokia.smartaide.data.remote;
 
 import com.alibaba.fastjson.JSON;
 
@@ -12,8 +12,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import gq.fokia.queueaide.data.Group;
-import gq.fokia.queueaide.data.User;
+import gq.fokia.smartaide.data.Group;
+import gq.fokia.smartaide.data.User;
 
 /**
  * Created by archie on 7/22/17.

@@ -1,9 +1,9 @@
-package gq.fokia.queueaide.users;
+package gq.fokia.smartaide.users;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import gq.fokia.queueaide.data.User;
+import gq.fokia.smartaide.data.User;
 
 /**
  * Created by archie on 7/29/17.

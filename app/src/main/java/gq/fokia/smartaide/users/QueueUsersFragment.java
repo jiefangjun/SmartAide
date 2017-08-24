@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.users;
+package gq.fokia.smartaide.users;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import gq.fokia.queueaide.R;
-import gq.fokia.queueaide.data.User;
+import gq.fokia.smartaide.data.User;
 
 /**
  * Created by archie on 7/29/17.

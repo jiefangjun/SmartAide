@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.users;
+package gq.fokia.smartaide.users;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import gq.fokia.queueaide.R;
-import gq.fokia.queueaide.data.User;
+import gq.fokia.smartaide.data.User;
 
 /**
  * Created by archie on 7/30/17.

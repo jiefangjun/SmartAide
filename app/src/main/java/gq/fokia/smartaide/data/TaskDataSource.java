@@ -1,4 +1,4 @@
-package gq.fokia.queueaide.data;
+package gq.fokia.smartaide.data;
 
 import java.util.List;
 

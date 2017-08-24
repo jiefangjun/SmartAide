@@ -1,10 +1,10 @@
-package gq.fokia.queueaide.users;
+package gq.fokia.smartaide.users;
 
 import java.util.List;
 
-import gq.fokia.queueaide.BasePresenter;
-import gq.fokia.queueaide.BaseView;
-import gq.fokia.queueaide.data.User;
+import gq.fokia.smartaide.BasePresenter;
+import gq.fokia.smartaide.BaseView;
+import gq.fokia.smartaide.data.User;
 
 /**
  * Created by archie on 7/29/17.

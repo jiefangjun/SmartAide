@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/QueueAide.iml" filepath="$PROJECT_DIR$/QueueAide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartAide.iml" filepath="$PROJECT_DIR$/SmartAide.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

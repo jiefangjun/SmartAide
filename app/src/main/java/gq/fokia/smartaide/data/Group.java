@@ -1,10 +1,8 @@
-package gq.fokia.queueaide.data;
+package gq.fokia.smartaide.data;
 
 
 import java.util.ArrayList;
 import java.util.List;
-
-import gq.fokia.queueaide.data.User;
 
 public class Group {
 

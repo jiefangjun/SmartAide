@@ -1,4 +1,4 @@
-package gq.fokia.queueaide;
+package gq.fokia.smartaide;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
-import gq.fokia.queueaide.users.QueueUsersFragment;
+import gq.fokia.queueaide.R;
+import gq.fokia.smartaide.users.QueueUsersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
