@@ -1,5 +1,7 @@
 package gq.fokia.smartaide.users;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import java.util.List;
 
 import gq.fokia.smartaide.BasePresenter;
@@ -18,7 +20,7 @@ public interface QueueUsersContract {
     }
 
     interface Presenter extends BasePresenter{
-        void loadData();
+        void loadData(SwipeRefreshLayout swipeRefreshLayout);
         List<User> getData();
     }
 

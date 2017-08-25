@@ -23,6 +23,8 @@ public class TestModel implements QueueUsersContract.Model {
 
     @Override
     public void doData(List<User> users) {
+        //为啥总喜欢用暴力手段。。
+        mUserList.clear();
         mUserList.addAll(users);
     }
 

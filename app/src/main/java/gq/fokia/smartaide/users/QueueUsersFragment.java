@@ -51,7 +51,7 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        mPresenter.loadData(mSwipeRefreshLayout);
     }
 
     public void initData(){
@@ -63,8 +63,6 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
     @Override
     public void showData(){
         mUsersAdapter.notifyDataSetChanged();
-        //mSwipeRefreshLayout.setRefreshing(false);
-        Log.d(getClass().toString(), "子线程结束");
     }
 
 
@@ -80,6 +78,12 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
     }
 
     public void setListener(){
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadData(mSwipeRefreshLayout);
+            }
+        });
 
         mUsersAdapter.setOnItemClickListener(new UsersAdapter.OnRecyclerViewItemClickListener() {
             @Override
@@ -89,6 +93,8 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
             }
         });
     }
+
+
 
 
 }

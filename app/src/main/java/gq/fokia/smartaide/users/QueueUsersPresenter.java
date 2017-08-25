@@ -1,6 +1,7 @@
 package gq.fokia.smartaide.users;
 
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,12 +26,20 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
 
     @Override
     public void start() {
-        loadData();
+        //loadData();
     }
 
     @Override
-    public void loadData() {
-        new FetchItemsTask().execute("http://192.168.123.153:8080/listusers");
+    public void loadData(final SwipeRefreshLayout swipeRefreshLayout) {
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                new FetchItemsTask().execute("http://192.168.1.8:8080/Users?method=get");
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 
     @Override

@@ -5,7 +5,7 @@
     <item
         android:title="scan"
         android:id="@+id/scan"
-        android:icon="@drawable/qrcode_scan"
+        android:icon="@drawable/ic_center_focus_weak_white_24px"
         app:showAsAction="always">
 
     </item>
