@@ -16,6 +16,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import gq.fokia.smartaide.user.UserFragment;
 import gq.fokia.smartaide.users.QueueUsersFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         //replaceFragment();
                         //TODO 在account下新建一个AccountFragment，实现记账功能，布局参考 QueueUsersFragment，展示数据。给一个添加数据的接口。
+                        break;
+                    case 4:
+                        replaceFragment(new UserFragment());
+                        break;
                 }
             }
             @Override

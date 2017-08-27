@@ -16,6 +16,7 @@ public class User {
     private String windowName;
     private String foodName;
     private boolean mCompleted;
+    private String password;
 
     public User(){
 
@@ -40,6 +41,10 @@ public class User {
         this.time = time;
         this.foodName = foodName;
         this.mCompleted = completed;
+    }
+
+    public User(String name){
+        this.name = name;
     }
 
 
@@ -90,5 +95,13 @@ public class User {
 
     public void setWindowName(String windowName) {
         this.windowName = windowName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
