@@ -43,6 +43,6 @@ public class UserRepository implements UserDataSource {
         if (mCachedUser == null) {
             mCachedUser = new LinkedHashMap<>();
         }
-        mCachedUser.put(user.getId(), user);
+        mCachedUser.put(user.getName(), user);
     }
 }

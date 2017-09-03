@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.bussiness;
+package gq.fokia.smartaide.business;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -21,18 +21,12 @@ public class LoginActivity extends AppCompatActivity {
         LoginFragment loginFragment = (LoginFragment) getFragmentManager().
                 findFragmentById(R.id.contentFrame);
 
-        // Create the view
         if (loginFragment == null) {
             loginFragment = LoginFragment.newInstance("LOGIN_FRAGMENT");
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.contentFrame, loginFragment);
         transaction.commit();
-
-        // Create the presenter
-        /*new LoginPresenter(getApplicationContext(),
-                UserRepository.getInstance(UserLocalDataSource.getInstance(getApplicationContext()),
-                loginFragment);*/
         new LoginPresenter(getApplicationContext(),
                 UserRepository.getInstance(UserLocalDataSource.getInstance(this)),
                 loginFragment);

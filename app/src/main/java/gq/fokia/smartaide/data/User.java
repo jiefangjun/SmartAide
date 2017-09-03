@@ -10,58 +10,32 @@ import java.util.UUID;
  */
 public class User {
 
-    private String id;
+    private int id;
     private String name;
-    private String time;
-    private String windowName;
-    private String foodName;
-    private boolean mCompleted;
     private String password;
+    private String avatar;
+    private String is_merchant;
 
-    public User(){
-
-    }
-
-    public User(String id, String name, String time, String windowName, String foodName){
-        this(id, name, time, windowName, foodName, false);
-    }
-
-    public User(String name, String time, String windowName, String foodName){
-        this(UUID.randomUUID().toString(), name, time, windowName, foodName, false);
-    }
-
-    public User(String windowName, String name, String time, String foodName, boolean completed){
-        this(UUID.randomUUID().toString(), windowName, name, time, foodName, completed);
-    }
-
-    public User(String id, String windowName, String name, String time, String foodName, boolean completed) {
+    public User(int id, String name, String password, String avatar, String is_merchant) {
         this.id = id;
-        this.windowName = windowName;
         this.name = name;
-        this.time = time;
-        this.foodName = foodName;
-        this.mCompleted = completed;
+        this.password = password;
+        this.avatar = avatar;
+        this.is_merchant = is_merchant;
     }
 
-    public User(String name){
+    public User(String name, String password, String avatar, String is_merchant) {
         this.name = name;
+        this.password = password;
+        this.avatar = avatar;
+        this.is_merchant = is_merchant;
     }
 
-
-
-    public boolean isCompleted() {
-        return mCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        mCompleted = completed;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,32 +43,8 @@ public class User {
         return name;
     }
 
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getWindowName() {
-        return windowName;
-    }
-
-    public void setWindowName(String windowName) {
-        this.windowName = windowName;
     }
 
     public String getPassword() {
@@ -103,5 +53,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getIs_merchant() {
+        return is_merchant;
+    }
+
+    public void setIs_merchant(String is_merchant) {
+        this.is_merchant = is_merchant;
     }
 }

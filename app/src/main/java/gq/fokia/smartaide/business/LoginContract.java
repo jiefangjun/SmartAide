@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.bussiness;
+package gq.fokia.smartaide.business;
 
 import gq.fokia.smartaide.BasePresenter;
 import gq.fokia.smartaide.BaseView;
@@ -11,7 +11,7 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter{
         void login();
-        void reset();
+        void register();
     }
 
     interface View extends BaseView<Presenter>{

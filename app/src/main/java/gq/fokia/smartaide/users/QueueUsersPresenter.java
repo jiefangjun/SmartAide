@@ -35,7 +35,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-                new FetchItemsTask().execute("http://192.168.1.8:8080/Users?method=get");
+                new FetchItemsTask().execute("http://10.61.42.85:8080/users");
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -57,7 +57,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                mModel.doData(new QueueFetcher().getUrlString(params[0]));
+                mModel.doData(new QueueFetcher().getUsers(params[0]));
             } catch (IOException e) {
                 e.printStackTrace();
             }

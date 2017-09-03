@@ -21,7 +21,8 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
-        <activity android:name=".bussiness.LoginActivity">
+        <activity
+            android:name=".business.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

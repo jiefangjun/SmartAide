@@ -1,13 +1,25 @@
-package gq.fokia.smartaide.bussiness;
+package gq.fokia.smartaide.business;
 
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import gq.fokia.smartaide.R;
 import gq.fokia.smartaide.data.User;
 import gq.fokia.smartaide.data.UserRepository;
+import gq.fokia.smartaide.data.remote.QueueFetcher;
+import gq.fokia.smartaide.utils.HttpUtil;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by archie on 8/27/17.
@@ -24,6 +36,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
 
     private UserLoginTask mAuthTask = null;
+    private UserRegister mRegisterTask = null;
 
 
     public LoginPresenter(Context context, UserRepository userRepository, LoginContract.View loginView) {
@@ -45,8 +58,22 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void reset() {
-        mLoginView.resetEditView();
+    public void register() {
+
+        String email = mLoginView.getUserEmail();
+        String password = mLoginView.getPassword();
+
+        boolean cancel = false;
+        if (!cancel) {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            mLoginView.showLoginProgress(true);
+            mRegisterTask = new UserRegister(email, password);
+            mRegisterTask.execute((Void) null);
+
+        }
+
+
     }
 
     private void attemptLogin() {
@@ -65,7 +92,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         boolean cancel = false;
 
         // Check for a valid mEmailView address & password.
-        if (TextUtils.isEmpty(email)) {
+        /*if (TextUtils.isEmpty(email)) {
             cancel = mLoginView.setEmailError(mContext.getString(R.string.error_field_required));
         } else if (!mLoginView.isEmailValid(email)) {
             cancel = mLoginView.setEmailError(mContext.getString(R.string.error_invalid_email));
@@ -73,7 +100,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_field_required));
         } else if (!mLoginView.isPasswordValid(password)) {
             cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_invalid_password));
-        }
+        }*/
 
         if (!cancel) {
             // Show a progress spinner, and kick off a background task to
@@ -81,6 +108,48 @@ public class LoginPresenter implements LoginContract.Presenter {
             mLoginView.showLoginProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
+        }
+    }
+
+    public class UserRegister extends AsyncTask<Void, Void, Boolean>{
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserRegister(String email, String password){
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            User user = new User(mEmail, mPassword, "", "0");
+
+            HttpUtil.sendOkHttpPostRequest("http://10.61.42.85:8080/users", user, new okhttp3.Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    mLoginView.showFailedError();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                }
+                });
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success){
+                mLoginView.showLoginProgress(false);
+                mLoginView.toMainAct();
+                Toast.makeText(mContext, "注册成功", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(mContext, "注册失败", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -88,6 +157,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         private final String mEmail;
         private final String mPassword;
+        private List<User> mUserList = new ArrayList<>();
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -96,24 +166,19 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                mUserList = new QueueFetcher().getUsers("http://10.61.42.85:8080/users");
+
+            } catch (IOException e){
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the mPasswordView matches.
-                    return pieces[1].equals(mPassword);
+            for (User user : mUserList){
+                if (user.getName().equals(mEmail)){
+                    return user.getPassword().equals(mPassword);
                 }
             }
 
-            // TODO: register the new account here.
             return false;
         }
 
@@ -125,7 +190,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             if (success) {
                 mLoginView.toMainAct();
                 if (mUserRepository != null) {
-                    mUserRepository.saveUserInfo(new User(mLoginView.getUserEmail()));
+                    mUserRepository.saveUserInfo(new User(mLoginView.getUserEmail(), mLoginView.getPassword(), "avatar", "0"));
                 }
             } else {
                 mLoginView.showFailedError();

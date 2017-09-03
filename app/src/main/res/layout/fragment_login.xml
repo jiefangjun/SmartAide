@@ -15,7 +15,7 @@
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
+        style="?android:attr/progressBarStyleInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -43,8 +43,7 @@
                     android:hint="prompt_email"
                     android:text="foo@example.com"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -62,8 +61,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:text="hello"
-                    android:singleLine="true" />
+                    android:text="hello"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -73,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="action_sign_in"
+                android:text="登录"
                 android:textStyle="bold" />
 
             <Button
@@ -82,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="reset"
+                android:text="注册"
                 android:textStyle="bold" />
 
         </LinearLayout>

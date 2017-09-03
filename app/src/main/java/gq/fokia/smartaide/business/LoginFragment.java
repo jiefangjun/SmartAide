@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.bussiness;
+package gq.fokia.smartaide.business;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -174,7 +174,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 break;
 
             case R.id.email_reset_button:
-                mPresenter.reset();
+                mPresenter.register();
                 break;
         }
     }

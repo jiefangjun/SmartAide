@@ -66,10 +66,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = mUserList.get(position);
-        holder.windowName.setText(user.getWindowName());
+        holder.windowName.setText(user.getName());
         holder.userName.setText(user.getName());
-        holder.foodName.setText(user.getFoodName());
-        holder.userTime.setText(user.getTime());
+        holder.foodName.setText(user.getAvatar());
+        holder.userTime.setText(user.getIs_merchant());
     }
 
     @Override
