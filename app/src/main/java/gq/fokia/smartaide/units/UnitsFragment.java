@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.users;
+package gq.fokia.smartaide.units;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -16,18 +16,19 @@ import android.widget.Toast;
 import java.util.List;
 
 import gq.fokia.smartaide.R;
-import gq.fokia.smartaide.data.User;
+import gq.fokia.smartaide.model.Unit;
+import gq.fokia.smartaide.model.User;
 
 /**
  * Created by archie on 7/29/17.
  */
 
-public class QueueUsersFragment extends Fragment implements QueueUsersContract.View {
+public class UnitsFragment extends Fragment implements UnitsContract.View {
 
-    private QueueUsersPresenter mPresenter = new QueueUsersPresenter(TestModel.getInstance(), this);
+    private UnitsPresenter mPresenter = new UnitsPresenter(TestModel.getInstance(), this);
     private RecyclerView mRecyclerView;
     private UsersAdapter mUsersAdapter;
-    private List<User> mUserList;
+    private List<Unit> mUnitList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
@@ -55,8 +56,8 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
     }
 
     public void initData(){
-        mUserList = mPresenter.getData();
-        mUsersAdapter= new UsersAdapter(mUserList);
+        mUnitList = mPresenter.getData();
+        mUsersAdapter= new UsersAdapter(mUnitList);
         mRecyclerView.setAdapter(mUsersAdapter);
     }
 
@@ -67,8 +68,8 @@ public class QueueUsersFragment extends Fragment implements QueueUsersContract.V
 
 
     @Override
-    public void setPresenter(QueueUsersContract.Presenter presenter) {
-         //mPresenter = new QueueUsersPresenter(TestModel.getInstance(), this);
+    public void setPresenter(UnitsContract.Presenter presenter) {
+         //mPresenter = new UnitsPresenter(TestModel.getInstance(), this);
     }
 
     @Override

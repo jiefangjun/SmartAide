@@ -1,5 +1,7 @@
 package gq.fokia.smartaide.data;
 
+import gq.fokia.smartaide.model.User;
+
 /**
  * Created by archie on 8/27/17.
  */

@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.business;
+package gq.fokia.smartaide.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

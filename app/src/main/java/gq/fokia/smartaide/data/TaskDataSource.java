@@ -2,6 +2,8 @@ package gq.fokia.smartaide.data;
 
 import java.util.List;
 
+import gq.fokia.smartaide.model.User;
+
 /**
  * Created by archie on 8/1/17.
  */

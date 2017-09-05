@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.data;
+package gq.fokia.smartaide.model;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import gq.fokia.smartaide.data.User;
+import gq.fokia.smartaide.model.User;
 import gq.fokia.smartaide.data.UserDataSource;
 
 /**

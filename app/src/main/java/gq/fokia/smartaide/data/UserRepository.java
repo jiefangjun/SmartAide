@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import gq.fokia.smartaide.data.local.UserLocalDataSource;
+import gq.fokia.smartaide.model.User;
 
 /**
  * Created by archie on 8/27/17.
@@ -45,4 +45,6 @@ public class UserRepository implements UserDataSource {
         }
         mCachedUser.put(user.getName(), user);
     }
+
+
 }

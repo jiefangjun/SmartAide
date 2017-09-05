@@ -1,24 +1,19 @@
-package gq.fokia.smartaide.business;
+package gq.fokia.smartaide.login;
 
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import gq.fokia.smartaide.R;
-import gq.fokia.smartaide.data.User;
+import gq.fokia.smartaide.model.User;
 import gq.fokia.smartaide.data.UserRepository;
 import gq.fokia.smartaide.data.remote.QueueFetcher;
 import gq.fokia.smartaide.utils.HttpUtil;
 import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**

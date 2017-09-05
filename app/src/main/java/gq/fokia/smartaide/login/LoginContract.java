@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.business;
+package gq.fokia.smartaide.login;
 
 import gq.fokia.smartaide.BasePresenter;
 import gq.fokia.smartaide.BaseView;

@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.users;
+package gq.fokia.smartaide.units;
 
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -6,20 +6,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import java.io.IOException;
 import java.util.List;
 
-import gq.fokia.smartaide.data.User;
+import gq.fokia.smartaide.model.Unit;
+import gq.fokia.smartaide.model.User;
 import gq.fokia.smartaide.data.remote.QueueFetcher;
 
 /**
  * Created by archie on 7/29/17.
  */
 
-public class QueueUsersPresenter implements QueueUsersContract.Presenter {
+public class UnitsPresenter implements UnitsContract.Presenter {
 
     private TestModel mModel;
-    private QueueUsersContract.View mView;
-    private FetchItemsTask mFetchItemsTask;
+    private UnitsContract.View mView;
 
-    public QueueUsersPresenter(TestModel model, QueueUsersContract.View view) {
+    public UnitsPresenter(TestModel model, UnitsContract.View view) {
         mModel = model;
         mView = view;
     }
@@ -35,7 +35,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-                new FetchItemsTask().execute("http://10.61.42.85:8080/users");
+                new FetchItemsTask().execute("http://10.61.42.85:8080/units");
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -43,7 +43,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
     }
 
     @Override
-    public List<User> getData() {
+    public List<Unit> getData() {
         return mModel.getData();
     }
 
@@ -57,7 +57,7 @@ public class QueueUsersPresenter implements QueueUsersContract.Presenter {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                mModel.doData(new QueueFetcher().getUsers(params[0]));
+                mModel.doData(new QueueFetcher().getUnits(params[0]));
             } catch (IOException e) {
                 e.printStackTrace();
             }

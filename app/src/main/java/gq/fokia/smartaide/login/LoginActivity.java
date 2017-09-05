@@ -1,4 +1,4 @@
-package gq.fokia.smartaide.business;
+package gq.fokia.smartaide.login;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
