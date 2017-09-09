@@ -16,7 +16,7 @@ import gq.fokia.smartaide.model.Unit;
  * Created by archie on 7/30/17.
  */
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> implements View.OnClickListener{
+public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.ViewHolder> implements View.OnClickListener{
 
     //private List<User> mUserList;
     private List<Unit> mUnitList;
@@ -49,7 +49,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         }
     }
 
-    public UsersAdapter(List<Unit> unitList){
+    public UnitsAdapter(List<Unit> unitList){
         this.mUnitList = unitList;
     }
 

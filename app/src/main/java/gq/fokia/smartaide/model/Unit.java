@@ -3,13 +3,15 @@ package gq.fokia.smartaide.model;
 public class Unit {
 
     private int id;
+    private String userAvatar;
     private String restaurantName;
     private String userName;
     private String productName;
     private String time;
 
-    public Unit(int id, String restaurantName, String userName, String productName, String time) {
+    public Unit(int id, String userAvatar, String restaurantName, String userName, String productName, String time) {
         this.id = id;
+        this.userAvatar = userAvatar;
         this.restaurantName = restaurantName;
         this.userName = userName;
         this.productName = productName;
@@ -34,6 +36,14 @@ public class Unit {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 
     public void setUserName(String userName) {

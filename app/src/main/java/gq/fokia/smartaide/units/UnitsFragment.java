@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import gq.fokia.smartaide.R;
+import gq.fokia.smartaide.data.remote.UnitsRemoteDataSource;
 import gq.fokia.smartaide.model.Unit;
-import gq.fokia.smartaide.model.User;
 
 /**
  * Created by archie on 7/29/17.
@@ -25,10 +27,10 @@ import gq.fokia.smartaide.model.User;
 
 public class UnitsFragment extends Fragment implements UnitsContract.View {
 
-    private UnitsPresenter mPresenter = new UnitsPresenter(TestModel.getInstance(), this);
+    private UnitsPresenter mPresenter = new UnitsPresenter(UnitsRemoteDataSource.getInstance(), this);
     private RecyclerView mRecyclerView;
-    private UsersAdapter mUsersAdapter;
-    private List<Unit> mUnitList;
+    private UnitsAdapter mUnitsAdapter;
+    public static List<Unit> mUnitList = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
@@ -44,6 +46,7 @@ public class UnitsFragment extends Fragment implements UnitsContract.View {
                 getActivity(), DividerItemDecoration.VERTICAL));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+
         initData();
         setListener();
         return view;
@@ -52,41 +55,40 @@ public class UnitsFragment extends Fragment implements UnitsContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.loadData(mSwipeRefreshLayout);
+        mPresenter.loadData();
     }
 
     public void initData(){
         mUnitList = mPresenter.getData();
-        mUsersAdapter= new UsersAdapter(mUnitList);
-        mRecyclerView.setAdapter(mUsersAdapter);
+        Log.d("mUnitList", mUnitList.size()+"");
+        mUnitsAdapter= new UnitsAdapter(mUnitList);
+        mRecyclerView.setAdapter(mUnitsAdapter);
     }
 
     @Override
     public void showData(){
-        mUsersAdapter.notifyDataSetChanged();
+        mUnitsAdapter.notifyDataSetChanged();
     }
 
 
     @Override
-    public void setPresenter(UnitsContract.Presenter presenter) {
-         //mPresenter = new UnitsPresenter(TestModel.getInstance(), this);
-    }
+    public void setPresenter(UnitsContract.Presenter presenter) {}
 
     @Override
     public void showInfo(){
-        //mSwipeRefreshLayout.setRefreshing(true);
-        Toast.makeText(getActivity(), "数据获取成功", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "数据获取失败", Toast.LENGTH_LONG).show();
     }
 
     public void setListener(){
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.loadData(mSwipeRefreshLayout);
+                mPresenter.loadData();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        mUsersAdapter.setOnItemClickListener(new UsersAdapter.OnRecyclerViewItemClickListener() {
+        mUnitsAdapter.setOnItemClickListener(new UnitsAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view) {
                 Log.d(getClass().toString(), "itemClick");

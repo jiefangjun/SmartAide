@@ -1,14 +1,17 @@
 package gq.fokia.smartaide.units;
 
-import android.os.AsyncTask;
-import android.support.v4.widget.SwipeRefreshLayout;
 
-import java.io.IOException;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
+
 import java.util.List;
 
+import gq.fokia.smartaide.data.UnitDataSource;
+import gq.fokia.smartaide.data.remote.UnitsRemoteDataSource;
 import gq.fokia.smartaide.model.Unit;
-import gq.fokia.smartaide.model.User;
-import gq.fokia.smartaide.data.remote.QueueFetcher;
+
+
+import static gq.fokia.smartaide.units.UnitsFragment.mUnitList;
 
 /**
  * Created by archie on 7/29/17.
@@ -16,60 +19,45 @@ import gq.fokia.smartaide.data.remote.QueueFetcher;
 
 public class UnitsPresenter implements UnitsContract.Presenter {
 
-    private TestModel mModel;
     private UnitsContract.View mView;
+    private UnitsRemoteDataSource mUnitsRemoteDataSource;
 
-    public UnitsPresenter(TestModel model, UnitsContract.View view) {
-        mModel = model;
+    public UnitsPresenter(UnitsRemoteDataSource unitsRemoteDataSource, UnitsContract.View view) {
+        mUnitsRemoteDataSource = unitsRemoteDataSource;
         mView = view;
     }
 
     @Override
     public void start() {
-        //loadData();
     }
 
     @Override
-    public void loadData(final SwipeRefreshLayout swipeRefreshLayout) {
-        swipeRefreshLayout.post(new Runnable() {
+    public void loadData() {
+
+        mUnitsRemoteDataSource.getUnits(new UnitDataSource.LoadUnitsCallback() {
             @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                new FetchItemsTask().execute("http://10.61.42.85:8080/units");
-                swipeRefreshLayout.setRefreshing(false);
+            public void onUnitsLoaded(List<Unit> units) {
+                //暂时暴力解决。
+                if (mUnitList.size() != 0){
+                    mUnitList.clear();
+                }
+                for (Unit unit: units) {
+                    mUnitList.add(unit);
+                }
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mView.showInfo();
             }
         });
+        mView.showData();
 
     }
 
     @Override
     public List<Unit> getData() {
-        return mModel.getData();
-    }
-
-    class FetchItemsTask extends AsyncTask<String, Integer, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                mModel.doData(new QueueFetcher().getUnits(params[0]));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mView.showData();
-        }
-
+        return mUnitList;
     }
 
 

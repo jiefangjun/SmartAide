@@ -121,7 +121,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         protected Boolean doInBackground(Void... params) {
             User user = new User(mEmail, mPassword, "", "0");
 
-            HttpUtil.sendOkHttpPostRequest("http://10.61.42.85:8080/users", user, new okhttp3.Callback() {
+            HttpUtil.sendUserPostRequest("http://10.61.42.58:8080/users", user, new okhttp3.Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     mLoginView.showFailedError();
@@ -162,7 +162,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                mUserList = new QueueFetcher().getUsers("http://10.61.42.85:8080/users");
+                mUserList = new QueueFetcher().getUsers("http://10.61.42.58:8080/users");
 
             } catch (IOException e){
                 return false;

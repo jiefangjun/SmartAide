@@ -36,7 +36,7 @@ public class QueueFetcher {
         return mUserList;
     }
 
-    public List<Unit> getUnits(String urlSpec) throws IOException {
+    /*public List<Unit> getUnits(String urlSpec) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(urlSpec)
@@ -46,7 +46,7 @@ public class QueueFetcher {
         Gson gson = new Gson();
         mUnitList = gson.fromJson(jsonString, new TypeToken<List<Unit>>(){}.getType());
         return mUnitList;
-    }
+    }*/
 
 
 

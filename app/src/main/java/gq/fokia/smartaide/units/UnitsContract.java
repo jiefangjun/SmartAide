@@ -21,7 +21,7 @@ public interface UnitsContract {
     }
 
     interface Presenter extends BasePresenter{
-        void loadData(SwipeRefreshLayout swipeRefreshLayout);
+        void loadData();
         List<Unit> getData();
     }
 
