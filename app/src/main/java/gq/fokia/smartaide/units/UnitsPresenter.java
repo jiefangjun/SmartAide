@@ -33,7 +33,6 @@ public class UnitsPresenter implements UnitsContract.Presenter {
 
     @Override
     public void loadData() {
-
         mUnitsRemoteDataSource.getUnits(new UnitDataSource.LoadUnitsCallback() {
             @Override
             public void onUnitsLoaded(List<Unit> units) {
@@ -44,12 +43,13 @@ public class UnitsPresenter implements UnitsContract.Presenter {
                 for (Unit unit: units) {
                     mUnitList.add(unit);
                 }
+
             }
 
             @Override
             public void onDataNotAvailable() {
-                mView.showInfo();
             }
+
         });
         mView.showData();
 

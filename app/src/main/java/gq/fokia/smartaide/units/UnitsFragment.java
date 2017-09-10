@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.List;
 import gq.fokia.smartaide.R;
 import gq.fokia.smartaide.data.remote.UnitsRemoteDataSource;
 import gq.fokia.smartaide.model.Unit;
+import gq.fokia.smartaide.units.helper.ItemTouchHelperCallback;
 
 /**
  * Created by archie on 7/29/17.
@@ -88,13 +90,9 @@ public class UnitsFragment extends Fragment implements UnitsContract.View {
             }
         });
 
-        mUnitsAdapter.setOnItemClickListener(new UnitsAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view) {
-                Log.d(getClass().toString(), "itemClick");
-                Toast.makeText(getActivity(), "itemOnClick", Toast.LENGTH_LONG).show();
-            }
-        });
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(mUnitsAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(mRecyclerView);
     }
 
 
