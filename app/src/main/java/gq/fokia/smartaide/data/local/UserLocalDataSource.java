@@ -12,7 +12,7 @@ import gq.fokia.smartaide.data.UserDataSource;
  * Created by archie on 8/27/17.
  */
 
-public class UserLocalDataSource implements UserDataSource {
+public class UserLocalDataSource {
 
     private static UserLocalDataSource INSTANCE = null;
 
@@ -29,7 +29,6 @@ public class UserLocalDataSource implements UserDataSource {
         return INSTANCE;
     }
 
-    @Override
     public void saveUserInfo(User user) {
         if (user == null)
             return;

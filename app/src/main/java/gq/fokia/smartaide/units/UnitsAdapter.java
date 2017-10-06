@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import gq.fokia.smartaide.R;
+import gq.fokia.smartaide.data.remote.UnitsRemoteDataSource;
 import gq.fokia.smartaide.model.Unit;
 import gq.fokia.smartaide.units.helper.ItemTouchHelperAdapter;
 
@@ -30,6 +31,7 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.ViewHolder> 
     @Override
     public void onItemDismiss(int position) {
         Log.d("mUnitList", mUnitList.size()+"");
+        UnitsRemoteDataSource.getInstance().deleteUnit(mUnitList.get(position));
         mUnitList.remove(position);
         notifyItemRemoved(position);
     }

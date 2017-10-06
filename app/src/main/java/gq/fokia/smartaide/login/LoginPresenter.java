@@ -5,15 +5,21 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import gq.fokia.smartaide.data.remote.UserRemoteDataSource;
 import gq.fokia.smartaide.model.User;
-import gq.fokia.smartaide.data.UserRepository;
-import gq.fokia.smartaide.data.remote.QueueFetcher;
 import gq.fokia.smartaide.utils.HttpUtil;
 import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -22,10 +28,11 @@ import okhttp3.Response;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
+    private static final String URL = "http://192.168.1.6:8080/SmartAide/users";
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
-    private final UserRepository mUserRepository;
+
     private final LoginContract.View mLoginView;
     private final Context mContext;
 
@@ -34,9 +41,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     private UserRegister mRegisterTask = null;
 
 
-    public LoginPresenter(Context context, UserRepository userRepository, LoginContract.View loginView) {
+    public LoginPresenter(Context context, LoginContract.View loginView) {
         this.mContext = context;
-        this.mUserRepository = userRepository;
         this.mLoginView = loginView;
 
         mLoginView.setPresenter(this);
@@ -121,31 +127,38 @@ public class LoginPresenter implements LoginContract.Presenter {
         protected Boolean doInBackground(Void... params) {
             User user = new User(mEmail, mPassword, "", "0");
 
-            HttpUtil.sendUserPostRequest("http://10.61.42.58:8080/users", user, new okhttp3.Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    mLoginView.showFailedError();
-                }
+            //UserRemoteDataSource.getInstance().postUser(user);
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("name", user.getName())
+                    .add("password", user.getPassword())
+                    .add("avatar", user.getAvatar())
+                    .add("is_merchant", user.getIs_merchant())
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-
-                }
-                });
-
-            return true;
+            return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             if (success){
                 mLoginView.showLoginProgress(false);
-                mLoginView.toMainAct();
                 Toast.makeText(mContext, "注册成功", Toast.LENGTH_LONG).show();
             }else {
                 Toast.makeText(mContext, "注册失败", Toast.LENGTH_LONG).show();
             }
         }
+
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -159,14 +172,28 @@ public class LoginPresenter implements LoginContract.Presenter {
             mPassword = password;
         }
 
+        /*
+        *Async已经是异步了，所以这里采用同步方法*/
         @Override
         protected Boolean doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .build();
+            Response response = null;
             try {
-                mUserList = new QueueFetcher().getUsers("http://10.61.42.58:8080/users");
-
-            } catch (IOException e){
-                return false;
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            String jsonString = null;
+            try {
+                jsonString = response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Gson gson = new Gson();
+            mUserList = gson.fromJson(jsonString, new TypeToken<List<User>>(){}.getType());
 
             for (User user : mUserList){
                 if (user.getName().equals(mEmail)){
@@ -175,6 +202,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
 
             return false;
+
         }
 
         @Override
@@ -184,9 +212,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             if (success) {
                 mLoginView.toMainAct();
-                if (mUserRepository != null) {
-                    mUserRepository.saveUserInfo(new User(mLoginView.getUserEmail(), mLoginView.getPassword(), "avatar", "0"));
-                }
             } else {
                 mLoginView.showFailedError();
             }

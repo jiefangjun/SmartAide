@@ -1,5 +1,7 @@
 package gq.fokia.smartaide.utils;
 
+import android.util.Log;
+
 import gq.fokia.smartaide.model.Unit;
 import gq.fokia.smartaide.model.User;
 import okhttp3.Call;
@@ -15,7 +17,7 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    public static void sendUserGetRequest(String address, okhttp3.Callback callback) {
+    public static void sendGetRequest(String address, okhttp3.Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(address)
@@ -54,6 +56,21 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void sendUserPutRequest(String address, User user, Callback callback) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("id", String.valueOf(user.getId()))
+                .add("name", user.getName())
+                .add("password", user.getPassword())
+                .add("avatar", user.getAvatar())
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(address)
+                .put(requestBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
     public static void sendUnitPutRequest(String address, Unit unit, Callback callback) {
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_avatar", unit.getUserAvatar())
@@ -69,17 +86,21 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void sendUnitDeleteRequest(String address, Unit unit, Callback callback) {
-        RequestBody requestBody = new FormBody.Builder()
-                .add("user_avatar", unit.getUserAvatar())
-                .add("restaurant_name", unit.getRestaurantName())
-                .add("user_name", unit.getUserName())
-                .add("product_name", unit.getProductName())
-                .build();
+    public static void sendUserDeleteRequest(String address, User user, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(address)
-                .delete(requestBody)
+                .url(address+"?id="+user.getId())
+                .delete()
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void sendUnitDeleteRequest(String address, Unit unit, Callback callback) {
+        //delete方法不发送请求体,请求头无效
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(address+"?id="+unit.getId())
+                .delete()
                 .build();
         client.newCall(request).enqueue(callback);
     }

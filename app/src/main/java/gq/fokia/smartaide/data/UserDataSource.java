@@ -1,5 +1,7 @@
 package gq.fokia.smartaide.data;
 
+import java.util.List;
+
 import gq.fokia.smartaide.model.User;
 
 /**
@@ -19,5 +21,19 @@ public interface UserDataSource {
         void loginFailed();
     }
 
-    void saveUserInfo(User user);
+    interface LoadUsersCallback{
+
+        void onUsersLoaded(List<User> users);
+
+        void onDataNotAvailable();
+    }
+
+    void getUsers(LoadUsersCallback callback);
+
+    void postUser(User user);
+
+    void putUser(User user);
+
+    void deleteUser(User user);
+
 }
