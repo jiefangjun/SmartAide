@@ -24,7 +24,7 @@ public class UserRemoteDataSource implements UserDataSource {
 
     private List<User> mUserList = new ArrayList<>();
 
-    private static final String URL = "http://192.168.1.6:8080/SmartAide/users";
+    private static final String URL = "http://172.20.205.241:8080/SmartAide/users";
 
     private UserRemoteDataSource(){}
 

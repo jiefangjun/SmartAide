@@ -16,10 +16,12 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import butterknife.BindView;
 import gq.fokia.smartaide.user.UserFragment;
 import gq.fokia.smartaide.units.UnitsFragment;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationBar.setAutoHideEnabled(true);
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_home_black_24dp, "排队").setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.drawable.ic_local_shipping_black_24dp, "外卖").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.drawable.ic_event_note_black_24dp, "记账"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_event_note_black_24dp, "记账").setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.drawable.ic_notifications_black_24dp, "点餐"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_account_circle_black_24dp, "我"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_account_circle_black_24dp, "我").setActiveColorResource(R.color.colorAccent))
                 .setMode(BottomNavigationBar.MODE_FIXED)
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
                 .initialise();
@@ -58,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         replaceFragment(new UnitsFragment());
                         break;
-                    case 2:
+                    case 1:
                         //replaceFragment();
                         //TODO 在account下新建一个AccountFragment，实现记账功能，布局参考 UnitsFragment，展示数据。给一个添加数据的接口。
                         break;
-                    case 4:
+                    case 2:
+                        //TODO 点餐界面，显示已经扫描进去的订单
+                        break;
+                    case 3:
                         replaceFragment(new UserFragment());
                         break;
                 }

@@ -3,6 +3,7 @@ package gq.fokia.smartaide.login;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -12,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import gq.fokia.smartaide.MainActivity;
+import gq.fokia.smartaide.R;
+import gq.fokia.smartaide.data.local.UserLocalDataSource;
 import gq.fokia.smartaide.data.remote.UserRemoteDataSource;
 import gq.fokia.smartaide.model.User;
 import gq.fokia.smartaide.utils.HttpUtil;
@@ -28,10 +32,7 @@ import okhttp3.Response;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
-    private static final String URL = "http://192.168.1.6:8080/SmartAide/users";
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+    private static final String URL = "http://172.20.205.241:8080/SmartAide/users";
 
     private final LoginContract.View mLoginView;
     private final Context mContext;
@@ -64,10 +65,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         String email = mLoginView.getUserEmail();
         String password = mLoginView.getPassword();
 
-        boolean cancel = false;
-        if (!cancel) {
+        if (!isValid(email, password)) {
             // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+            // perform the user lo
             mLoginView.showLoginProgress(true);
             mRegisterTask = new UserRegister(email, password);
             mRegisterTask.execute((Void) null);
@@ -90,20 +90,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         String email = mLoginView.getUserEmail();
         String password = mLoginView.getPassword();
 
-        boolean cancel = false;
-
-        // Check for a valid mEmailView address & password.
-        /*if (TextUtils.isEmpty(email)) {
-            cancel = mLoginView.setEmailError(mContext.getString(R.string.error_field_required));
-        } else if (!mLoginView.isEmailValid(email)) {
-            cancel = mLoginView.setEmailError(mContext.getString(R.string.error_invalid_email));
-        } else if (TextUtils.isEmpty(password)) {
-            cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_field_required));
-        } else if (!mLoginView.isPasswordValid(password)) {
-            cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_invalid_password));
-        }*/
-
-        if (!cancel) {
+        if (!isValid(email, password)) {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             mLoginView.showLoginProgress(true);
@@ -111,6 +98,24 @@ public class LoginPresenter implements LoginContract.Presenter {
             mAuthTask.execute((Void) null);
 
         }
+    }
+
+    private Boolean isValid(String email, String password){
+
+        boolean cancel = false;
+
+        // Check for a valid mEmailView address & password.
+        if (TextUtils.isEmpty(email)) {
+            cancel = mLoginView.setEmailError(mContext.getString(R.string.error_field_required));
+        } else if (!mLoginView.isEmailValid(email)) {
+            cancel = mLoginView.setEmailError(mContext.getString(R.string.error_invalid_email));
+        } else if (TextUtils.isEmpty(password)) {
+            cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_field_required));
+        } else if (!mLoginView.isPasswordValid(password)) {
+            cancel = mLoginView.setPasswordError(mContext.getString(R.string.error_invalid_password));
+        }
+
+        return cancel;
     }
 
     public class UserRegister extends AsyncTask<Void, Void, Boolean>{
@@ -176,6 +181,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         *Async已经是异步了，所以这里采用同步方法*/
         @Override
         protected Boolean doInBackground(Void... params) {
+            mLoginView.showLoginProgress(true);
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(URL)
@@ -185,19 +191,28 @@ public class LoginPresenter implements LoginContract.Presenter {
                 response = client.newCall(request).execute();
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
             String jsonString = null;
             try {
                 jsonString = response.body().string();
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
+
+            if (jsonString == null)
+                return false;
             Gson gson = new Gson();
             mUserList = gson.fromJson(jsonString, new TypeToken<List<User>>(){}.getType());
 
             for (User user : mUserList){
                 if (user.getName().equals(mEmail)){
-                    return user.getPassword().equals(mPassword);
+                    if (user.getPassword().equals(mPassword)){
+                        UserLocalDataSource.getInstance(mContext).saveUserInfo(user);
+                        return true;
+                    }
+                    return false;
                 }
             }
 
@@ -209,6 +224,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             mLoginView.showLoginProgress(false);
+
 
             if (success) {
                 mLoginView.toMainAct();

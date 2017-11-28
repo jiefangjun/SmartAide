@@ -25,7 +25,6 @@ public interface LoginContract {
         boolean setPasswordError(String error);
 
         void showLoginProgress(boolean show);
-        void resetEditView();
         void toMainAct();
         void showFailedError();
     }

@@ -16,8 +16,6 @@ public interface UserContract {
     }
 
     interface Presenter extends BasePresenter{
-        //void changeAvatar(ImageView imageView);
-        //void changeName(String name);
         void loadAvatar();
         void loadName();
     }

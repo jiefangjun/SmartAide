@@ -60,8 +60,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void onResume() {
         super.onResume();
         mPresenter.start();
-        //模拟自动登录
-        //signButton.performClick();
     }
 
     @Override
@@ -146,12 +144,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             mPasswordView.requestFocus();
         }
         return true;
-    }
-
-    @Override
-    public void resetEditView() {
-        mEmailView.setText("");
-        mPasswordView.setText("");
     }
 
     @Override

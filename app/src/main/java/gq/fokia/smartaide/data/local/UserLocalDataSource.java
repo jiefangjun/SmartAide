@@ -37,7 +37,9 @@ public class UserLocalDataSource {
         ContentValues values = new ContentValues();
         values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID, user.getId());
         values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_EMAIL, user.getName());
-        values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_PWD, user.getPassword());
+        //values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_PWD, user.getPassword()); 默认情况下不存储密码
+        values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_AVATAR, user.getAvatar());
+        values.put(UsersPersistenceContract.UserEntry.COLUMN_NAME_IS_MERCHANT, user.getIs_merchant());
 
         db.insert(UsersPersistenceContract.UserEntry.TABLE_NAME, null, values);
         db.close();

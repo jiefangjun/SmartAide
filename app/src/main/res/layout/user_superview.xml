@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:stv="http://schemas.android.com/apk/res-auto">
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        stv:layout_constraintEnd_toEndOf="parent"
+        stv:layout_constraintStart_toStartOf="parent"
+        stv:layout_constraintTop_toTopOf="parent"
+        stv:sLeftTopTextColor="@color/colorAccent"
+        stv:sCenterTopTextString=" "
+        stv:sCenterViewGravity="left_center"
+        stv:sLeftIconRes="@drawable/ic_account_circle_black_24dp"
+        stv:sLeftTopTextString="用户"
+        stv:sLeftViewGravity="left_center"
+        stv:sRightCheckBoxRes="@drawable/ic_home_black_24dp"
+        stv:sRightViewType="checkbox"/>
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/favorite"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        stv:layout_constraintEnd_toEndOf="parent"
+        stv:layout_constraintStart_toStartOf="parent"
+        stv:layout_constraintTop_toBottomOf="@+id/user"
+        stv:sCenterBottomTextColor="@color/colorAccent"
+        stv:sCenterTopTextString=" "
+        stv:sCenterViewGravity="left_center"
+        stv:sLeftIconRes="@drawable/ic_account_circle_black_24dp"
+        stv:sLeftTopTextString="喜欢"
+        stv:sLeftViewGravity="left_center"
+        stv:sRightCheckBoxRes="@drawable/ic_home_black_24dp"
+        stv:sRightViewType="checkbox"/>
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/help"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        stv:layout_constraintEnd_toEndOf="parent"
+        stv:layout_constraintHorizontal_bias="0.0"
+        stv:layout_constraintStart_toStartOf="parent"
+        stv:layout_constraintTop_toBottomOf="@+id/favorite"
+        stv:sCenterBottomTextColor="@color/colorAccent"
+        stv:sCenterTopTextString=" "
+        stv:sCenterViewGravity="left_center"
+        stv:sLeftIconRes="@drawable/ic_local_shipping_black_24dp"
+        stv:sLeftTopTextString="帮助"
+        stv:sLeftViewGravity="left_center"
+        stv:sRightCheckBoxRes="@drawable/ic_home_black_24dp"
+        stv:sRightViewType="checkbox"/>
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="80dp"
+        stv:layout_constraintEnd_toEndOf="parent"
+        stv:layout_constraintHorizontal_bias="0.0"
+        stv:layout_constraintStart_toStartOf="parent"
+        stv:layout_constraintTop_toBottomOf="@+id/favorite"
+        stv:sCenterBottomTextColor="@color/colorAccent"
+        stv:sCenterTopTextString=" "
+        stv:sCenterViewGravity="left_center"
+        stv:sLeftIconRes="@drawable/ic_local_shipping_black_24dp"
+        stv:sLeftTopTextString="关于"
+        stv:sLeftViewGravity="left_center"
+        stv:sRightCheckBoxRes="@drawable/ic_home_black_24dp"
+        stv:sRightViewType="checkbox"/>
+
+</android.support.constraint.ConstraintLayout>

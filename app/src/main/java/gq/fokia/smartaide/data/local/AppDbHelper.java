@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AppDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
-    public static final String DATABASE_NAME = "login-mvp-architecture.db";
+    public static final String DATABASE_NAME = "SmartAide.db";
 
     private static final String TEXT_TYPE = " TEXT";
 
@@ -21,7 +21,9 @@ public class AppDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + UsersPersistenceContract.UserEntry.TABLE_NAME + " (" +
                     UsersPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + "PRIMARY KEY" + COMMA_SEP +
                     UsersPersistenceContract.UserEntry.COLUMN_NAME_EMAIL + TEXT_TYPE + COMMA_SEP +
-                    UsersPersistenceContract.UserEntry.COLUMN_NAME_PWD + TEXT_TYPE +
+                    UsersPersistenceContract.UserEntry.COLUMN_NAME_PWD + TEXT_TYPE + COMMA_SEP +
+                    UsersPersistenceContract.UserEntry.COLUMN_NAME_AVATAR + TEXT_TYPE + COMMA_SEP +
+                    UsersPersistenceContract.UserEntry.COLUMN_NAME_IS_MERCHANT + TEXT_TYPE +
                     " )";
 
     public AppDbHelper(Context context) {

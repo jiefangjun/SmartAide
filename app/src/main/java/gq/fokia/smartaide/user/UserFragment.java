@@ -6,9 +6,17 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.allen.library.SuperTextView;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import butterknife.BindView;
 import gq.fokia.smartaide.R;
 
 /**
@@ -16,16 +24,26 @@ import gq.fokia.smartaide.R;
  */
 
 public class UserFragment extends Fragment implements UserContract.View {
-    private ImageView userAvatar;
-    private TextView userName;
+
     private UserContract.Presenter mPresenter;
+
+    @BindView(R.id.user)
+    SuperTextView userView;
+
+    @BindView(R.id.favorite)
+    SuperTextView favoriteView;
+
+    @BindView(R.id.help)
+    SuperTextView helpView;
+
+    @BindView(R.id.about)
+    SuperTextView aboutView;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-        userAvatar = (ImageView) view.findViewById(R.id.user_avatar);
-        userName = (TextView) view.findViewById(R.id.user_name);
+        View view = inflater.inflate(R.layout.user_superview, container, false);
         return view;
     }
 
@@ -43,4 +61,5 @@ public class UserFragment extends Fragment implements UserContract.View {
     public void showNAme() {
         mPresenter.loadName();
     }
+
 }

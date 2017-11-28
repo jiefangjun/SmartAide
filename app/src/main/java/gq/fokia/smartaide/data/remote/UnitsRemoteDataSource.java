@@ -24,7 +24,7 @@ public class UnitsRemoteDataSource implements UnitDataSource{
 
     private List<Unit> mUnitList = new ArrayList<>();
 
-    private static final String URL = "http://192.168.1.6:8080/SmartAide/units";
+    private static final String URL = "http://172.20.205.241:8080/SmartAide/units";
 
     private UnitsRemoteDataSource(){}
 

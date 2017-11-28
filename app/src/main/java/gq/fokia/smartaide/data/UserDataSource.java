@@ -14,13 +14,6 @@ public interface UserDataSource {
     * 在这里定义一些回调接口
     * */
 
-    public interface OnLoginListener {
-
-        void loginSuccess(User user);
-
-        void loginFailed();
-    }
-
     interface LoadUsersCallback{
 
         void onUsersLoaded(List<User> users);

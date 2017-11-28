@@ -1,5 +1,7 @@
 package gq.fokia.smartaide;
 
+import android.widget.AdapterView;
+
 /**
  * Created by archie on 7/29/17.
  */

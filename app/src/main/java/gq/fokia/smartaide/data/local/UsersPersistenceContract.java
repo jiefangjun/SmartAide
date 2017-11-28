@@ -15,8 +15,10 @@ public final class UsersPersistenceContract {
     /* Inner class that defines the table contents */
     public static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "user";
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
+        public static final String COLUMN_NAME_ENTRY_ID = "id";
         public static final String COLUMN_NAME_EMAIL = "email";
         public static final String COLUMN_NAME_PWD = "password";
+        public static final String COLUMN_NAME_AVATAR = "avatar";
+        public static final String COLUMN_NAME_IS_MERCHANT = "is_merchant";
     }
 }
